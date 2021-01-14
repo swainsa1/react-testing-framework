@@ -3,7 +3,7 @@ import React from "react";
 import { configure, shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Blog from "./Blog";
-import { NavLink, Route } from "react-router";
+import { Route, NavLink,Switch } from 'react-router-dom';
 import AsyncNewPost from '../../hoc/asynccomponent'
 
 configure({ adapter: new Adapter() });
@@ -42,5 +42,17 @@ describe("<Blog/>", () => {
 
   it("should contain 3 Route components as default auth is true ", () => {
     expect(wrapper.find(Route).length).toEqual(3); 
+  });
+
+  it("should contain 3 Route components as explicit auth is set to true ", () => {
+    wrapper.setState({ auth: true });
+    expect(wrapper.find(Route).length).toEqual(3); 
+  });
+
+  it("should contain 2 NavLink component ", () => {
+    expect(wrapper.find(NavLink).length).toEqual(2); 
+  });
+  it("should have first hyperlink as Home ", () => {
+    expect(wrapper.find(NavLink).first().prop("children")).toEqual('Home'); 
   });
 });
